@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Bootstrap 实例(jquery混合) - 带有下拉菜单的标签</title>
+    <link rel="stylesheet" href="content\bootstrap.css">
+    <style>
+        .nav > li > a:hover,
+        .nav > li > a:focus {
+            text-decoration: none;
+            background-color: #eee;
+        }
+    </style>
+    <script src="content\jquery-3.1.1.js"></script>
+    <script src="content\bootstrap.js"></script>
+    <script>
+        $(function(){
+            $("li.dropdown").click(function(){
+                $(this).addClass("active").siblings().removeClass("active");
+
+            });
+            $("li.dropdown").hover(function () {
+
+            })
+            $(".dropdown-menu>li").click(function(){
+                var $span=$("<span class='caret'></span>");
+                var $parent_a=$(this).parent().siblings();
+                var $val=$parent_a.text();
+                var $tval=$(this).text();
+                var $a=$("<a href='#'></a>");
+                $a.text($val);
+                $parent_a.text($tval).append($span);
+                $(this).html($a);
+            });
+
+
+            /*var clickHandler = function (e) {
+                e.preventDefault();
+                Plugin.call($(this), 'show')
+            };
+
+
+
+            $(document)
+                .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
+                .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler)*/
+        })
+    </script>
+</head>
+<body>
+
+<p>带有下拉菜单的标签</p>
+<ul class="nav nav-tabs">
+    <li class="dropdown active home">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Home <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">about</a></li>
+            <li><a href="#">contact</a></li>
+            <li><a href="#">QQ</a></li>
+            <li class="divider"></li>
+            <li><a href="#">W3C</a></li>
+        </ul>
+    </li>
+    <li class="dropdown SVN">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            SVN <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">efd</a></li>
+
+        </ul>
+    </li>
+    <li class="dropdown iOS">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            iOS <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">vfv</a></li>
+        </ul>
+    </li>
+    <li class="dropdown VB-Net">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            VB.Net <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="# ">Swing</a></li>
+        </ul>
+    </li>
+    <li class="dropdown Java">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            Java <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">qwe</a></li>
+        </ul>
+    </li>
+    <li class="dropdown PHP">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            PHP <span class="caret sr-only"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">iuiop</a></li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+</html>

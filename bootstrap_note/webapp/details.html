@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="content/bootstrap.css">
+    <link rel="stylesheet" href="content/font-awesome.css">
+    <link href="content/bootstrap_theme/cerulean.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/details.css">
+    <link rel="stylesheet" href="test/ui-dialog.css">
+    <link rel="stylesheet" href="css/tipsy.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="test/dialog.js"></script>
+    <script src="js/tipsy.js"></script>
+    <script src="content/bootstrap.js"></script>
+    <script src="js/details_init.js"></script>
+    <script>
+        (function ($) {
+            //封装全局函数的插件
+            $.extend({
+                "getQueryParam": function (key, ignoreCase) {
+                    if (typeof key == "undefined" || key == null) {
+                        throw new Error("missing argument \"key\"");
+                    }
+
+                    var reg;
+                    if (ignoreCase) {
+                        reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)", "i");
+                    } else {
+                        reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+                    }
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) {
+                        return unescape(r[2]);
+                    }
+                    return "";
+                }
+            })
+        })(jQuery);
+    </script>
+    <script>
+        $(function () {
+            var id=$.getQueryParam("id");
+            detailManager.init(id);
+
+            $(".search-input").on("keyup", function (e) {
+                var d = dialog({
+                    title: '操作成功',
+                    content: '正在加载，请稍候！'
+                });
+                if (e.which == 13) {
+                    d.showModal();
+                }
+                return false;
+            }).on("click", "button", function () {
+                var d = dialog({
+                    title: '操作成功',
+                    content: '正在加载，请稍候！'
+                });
+                d.showModal();
+            });
+
+            $(".buy-img-small img").click(function () {
+                var $this=$(this);
+                var tsrc=$this.attr("src");
+                $this.parent().parent().addClass("selected").removeClass("unselected").siblings().removeClass("selected").addClass("unselected");
+                $(".buy-img-big img").attr("src",tsrc);
+                $(".magnifying-glassDiv img").attr("src",tsrc);
+            });
+
+            $(".buy-describe-size li,.buy-describe-color li").click(function(){
+                var $this=$(this);
+                $this.addClass("selected").removeClass("unselected").children(".okImg").css("display","block");
+                $this.siblings().removeClass("selected").addClass("unselected").children(".okImg").css("display","none");
+            });
+
+
+            var $name=$(".buy-describe-name").text();
+            var $input=$(".buy-describe-amount input");
+            var $price=parseInt($(".price-style").text().slice(1));
+            function checked(btnArray) {
+                var $amount_max=Number($input.attr("max"));
+                var $size=$(".buy-describe-size li").filter(".selected").text();
+                var $color=$(".buy-describe-color li").filter(".selected").children("a").children("img").attr("original-title");
+                var $amount=$input.val();
+                var $content="您所选的商品信息："+"<br>"+"产品名："+$name+"<br>"+"鞋码："+$size+"<br>"+"颜色："+$color+"<br>"+"数量："+$amount+"<br>"+"总金额："+"￥"+($amount*$price).toFixed(2);
+                if($size==""){
+                    dialog({
+                        title:'操作失败!',
+                        content:'请选择码数！'
+                    }).show();
+                }
+                else if($color==undefined){
+                    dialog({
+                        title:'操作失败!',
+                        content:'请选择颜色！'
+                    }).show();
+                }
+                else if($amount<1||$amount>$amount_max){
+                    var d_instance = dialog({
+                        title:'操作失败!',
+                        content:'请输入小于库存的数量！'
+                    });
+                    d_instance.show();
+                    d_instance.title("hello");
+                    $input.focus();
+                }
+                else{
+                    var d = dialog({
+                        title: '交易成功',
+                        content:'操作成功',
+                        button:btnInit(btnArray,$content)
+                    });
+                    d.showModal().width(500);
+                }
+            }
+
+            function clearShowCar(){
+
+
+
+
+            }
+
+            var Btnobj=function (val,autofocus,disabled,btnclsName,content) {
+                this.val=val;
+                this.content=content;
+                this.btnclsName=btnclsName;
+                this.autofocus=autofocus;
+                this.disabled=disabled;
+            };
+            var buyCarArray=[
+                new Btnobj("结算",false,false,"btn-info","您已结算"),
+                new Btnobj("查看商品详情",false,false,"btn-info",""),
+                new Btnobj("清空购物车",false,false,"btn-warning","您已清空"),
+                new Btnobj("禁用按钮",false,true)
+            ];
+            var buyArray=[
+                new Btnobj("立即购买",false,false,"btn-success","您已购买"),
+                new Btnobj("删除商品",false,false,"btn-danger","您已删除"),
+                new Btnobj("查看商品详情",false,false,"btn-info",""),
+                new Btnobj("禁用按钮",false,true)
+            ];
+
+            function btnInit (array,detailContent) {
+                var ary=[];
+                $.each(array,function (index,item) {
+                    if(item.val.indexOf("查看")!=-1){
+                        item.content=detailContent;
+                    }
+                    var obj={
+                        value:item.val,
+                        callback:function () {
+                            this.content(item.content);
+                            return false;
+                        }
+                    };
+                    if(item.btnclsName!=undefined){
+                        obj.btnclsName=item.btnclsName;
+                    }
+                    obj.disabled=item.disabled;
+                    ary[ary.length]=obj;
+                });
+                return ary;
+            }
+            $(".add").click(function() {
+                checked(buyCarArray);
+            });
+            $(".buy").click(function() {
+                checked(buyArray);
+            });
+            var $colorTitle=$('.buy-describe-color [title]');
+            $colorTitle.tipsy({gravity: 'n',fade:true});
+            var $inventoryTitle=$('#inventory[title]');
+            $inventoryTitle.tipsy({trigger: 'focus', gravity: 's'});
+
+        })
+    </script>
+    <script src="js/magnifyingGlass.js"></script>
+    <script src="js/com-detail.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="row logo-sousuo">
+            <div class="col-xs-12 col-sm-12">
+                <div class="row">
+                    <div class="col-xs-2 col-sm-2 logo"><a href="grid.html"><img src="resource/Images/LOGO_1_s.png" alt=""></a></div>
+                    <div class="col-xs-2 col-sm-2 store-name">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 s-name">正在加载请稍候！</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5 col-sm-5">
+                                <span class="badge" style="font-size: 10px;">品牌直销</span>
+                            </div>
+                            <div class="col-xs-7 col-sm-7"><span class="icon-github icon-large" title="联系客服"></span></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 search-input">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入商品名称" style="border: 3px solid #044889;">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-info" type="button" style="width: 80px;">搜索</button>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="naver">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-xs-2 col-sm-2 store-logo"></div>
+                        <div class="col-xs-10 col-sm-10 store-naver">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mainer">
+    <div class="container">
+        <div class="row buy-message">
+            <div class="col-xs-4 col-sm-5 buy-message-img">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 buy-img-big"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 buy-img-small"></div>
+                </div>
+            </div>
+            <div class="col-xs-5 col-sm-5 buy-message-describe">
+                <div class="row buy-describe-name"></div>
+                <div class="row buy-describe-ltitle"></div>
+                <div class="row buy-describe-intro"></div>
+                <div class="row price-active">
+                    <div class="col-xs-12">
+                        <div class="row buy-describe-price">
+                            <div class="col-xs-2 col-sm-2" style="margin-top: 10px;">价格</div>
+                        </div>
+                        <div class="row buy-describe-active">
+                            <div class="col-xs-2 col-sm-2" style="margin-bottom: 5px;">优惠</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row buy-describe-freight">
+                    <div class="col-xs-2 col-sm-2">运费</div>
+                    <div class="col-xs-10 col-sm-10">
+                        <span>深圳 至
+                            <select class="btn btn-info dropdown-toggle" style="padding: 0;">
+                                <option value="北京">北京</option>
+                                <option value="上海">上海</option>
+                                <option value="广州">广州</option>
+                                <option value="长沙">长沙</option>
+                                <option value="深圳">深圳</option>
+                                <option value="武汉">武汉</option>
+                            </select>
+                            快递 免运费
+                        </span>
+                    </div>
+                </div>
+                <div class="row buy-describe-size">
+                    <div class="col-xs-2 col-sm-2">尺寸</div>
+                </div>
+                <div class="row buy-describe-color">
+                    <div class="col-xs-2 col-sm-2">颜色</div>
+                </div>
+                <div class="row buy-describe-amount">
+                    <div class="col-xs-2 col-sm-2">数量</div>
+                    <div class="col-xs-10 col-sm-10">
+                        <form>
+                            <input type="number" name="points" min="1" style="width: 50px;margin-right: 3px;" id="inventory" title="请输入购买数量"/>库存<span class="inventory" style="color:gray;"></span>件
+                        </form>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-xs-5 col-sm-5 buy-message-add">
+                        <button class="btn btn-success add" style="width: 150px;"><span class="icon-shopping-cart" style="margin-right: 3px;"></span>加入购物车</button>
+                    </div>
+                    <div class="col-xs-5 col-sm-5 buy-message-buy">
+                        <button class="btn btn-warning buy" style="width: 150px;">立即购买</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2 col-sm-2 buy-message-other">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12" style="margin-bottom: 20px;margin-top: 20px;">
+                        <img src="resource/Images/sroll1.png" class="img-responsive" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12" style="margin-bottom: 20px">
+                        <img src="resource/Images/sroll.png" class="img-responsive" alt="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12" style="margin-bottom: 20px">
+                        <img src="resource/Images/sroll1.png" class="img-responsive" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row details-show panel">
+            <div class="col-xs-12 col-sm-12 panel-heading">
+                <div class="panel-title row">
+                    <div class="col-xs-2 col-sm-1 detail-tag onShow" style="font-size: 14px;">
+                        商品详情
+                        <div class="okDown" style="display: block"><img src="resource/Images/ok_down.png" alt="" class="img-responsive"></div>
+                    </div>
+                    <div class="col-xs-2 col-sm-1 com-tag onHide" style="font-size: 14px;">
+                        商品评价
+                        <div class="okDown"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 panel-body" style="margin-top: -12px;border: 1px solid #e3e3e3;background-color: #FFFFFF;">
+               <div class="detail-part" style="display: block">
+                   <div class="row" style="border:1px solid #e3e3e3;">
+                       <div class="col-xs-12 col-sm-12">
+                           <div style="height: 30px;margin-top:10px;"> 产品参数：</div>
+                           <ul class="productInfo">
+                           </ul>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-xs-12 col-sm-12 productImg">
+                       </div>
+                   </div>
+               </div>
+               <div class="com-part">
+                   <div class="write-com">
+                       <div class="total-points">
+                           <div class="row" style="padding: 10px;">
+                               <div class="col-xs-2 col-sm-2" style="font-size: 13px;">与描述相符
+                                   <div class="score-style score">4.0</div>
+                                   <span class="rating">
+                                       <span class="icon-star" style="color: goldenrod;"></span>
+                                       <span class="icon-star" style="color: goldenrod;"></span>
+                                       <span class="icon-star" style="color: goldenrod;"></span>
+                                       <span class="icon-star" style="color: goldenrod;"></span>
+                                       <span class="icon-star"></span>
+                                   </span>
+                               </div>
+                               <div class="col-xs-6 col-sm-6" style="height: 80px;border-left: 1px dashed #e3e3e3;">
+                                   <div class="progress progress-striped" style="margin-top: 5%;">
+                                       <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                            aria-valuemin="0" aria-valuemax="100" style="width: 80%;" >
+                                           <span class="sr-only">80% 完成</span>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="row" style="font-size:13px;height: 30px;background-color: #e3e3e3;padding-top: 5px;border: 1px solid gray;">
+                               <div>
+                                   <label class="checkbox-inline">
+                                       <input type="radio" name="optionsRadiosinline" id="optionsRadios1" value="option1" checked> 全部
+                                   </label>
+                                   <label class="checkbox-inline">
+                                       <input type="radio" name="optionsRadiosinline" id="optionsRadios2"  value="option2"> 有内容
+                                   </label>
+                                   <label class="checkbox-inline">
+                                       <input type="radio" name="optionsRadiosinline" id="optionsRadios3" value="option1" checked> 有图片
+                                   </label>
+                                   <label class="checkbox-inline">
+                                       <input type="radio" name="optionsRadiosinline" id="optionsRadios4"  value="option2"> 追评
+                                   </label>
+
+                                   <div class="btn-group pull-right" style="margin-right: 10px;border: 1px solid gray;">
+                                       <span class="dropdown-toggle" data-toggle="dropdown">按默认
+                                           <span class="caret"></span>
+                                       </span>
+                                       <ul class="dropdown-menu" role="menu">
+                                           <li><a href="#">按时间</a></li>
+                                           <li><a href="#">按默认</a></li>
+                                       </ul>
+                                   </div>
+                               </div>
+                           </div>
+                       </div><hr>
+                       <div class="com-content">
+                           <div class="row">
+                               <div class="col-xs-6 col-sm-6">鞋子试过了，非常棒。感谢 登月的耐心解答，还会再次关顾的！<br>
+                                   2016.07.21
+                               </div>
+                               <div class="col-xs-3 col-sm-3">颜色分类：深灰紫/白/粉色/蓝灰/黑<br>
+                                   鞋码：37.5</div>
+                               <div class="col-xs-3 col-sm-3">l***0（匿名）</div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                               <div class="col-xs-6 col-sm-6">鞋子试过了，非常棒。感谢 登月的耐心解答，还会再次关顾的！<br>
+                                   2016.07.21
+                               </div>
+                               <div class="col-xs-3 col-sm-3">颜色分类：深灰紫/白/粉色/蓝灰/黑<br>
+                                   鞋码：37.5</div>
+                               <div class="col-xs-3 col-sm-3">l***0（匿名）</div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                               <div class="col-xs-6 col-sm-6">鞋子试过了，非常棒。感谢 登月的耐心解答，还会再次关顾的！<br>
+                                   2016.07.21
+                               </div>
+                               <div class="col-xs-3 col-sm-3">颜色分类：深灰紫/白/粉色/蓝灰/黑<br>
+                                   鞋码：37.5</div>
+                               <div class="col-xs-3 col-sm-3">l***0（匿名）</div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                               <div class="col-xs-6 col-sm-6">鞋子试过了，非常棒。感谢 登月的耐心解答，还会再次关顾的！<br>
+                                   2016.07.21
+                               </div>
+                               <div class="col-xs-3 col-sm-3">颜色分类：深灰紫/白/粉色/蓝灰/黑<br>
+                                   鞋码：37.5</div>
+                               <div class="col-xs-3 col-sm-3">l***0（匿名）</div>
+                           </div>
+                           <hr>
+                           <div class="row">
+                               <div class="col-xs-6 col-sm-6">鞋子试过了，非常棒。感谢 登月的耐心解答，还会再次关顾的！<br>
+                                   2016.07.21
+                               </div>
+                               <div class="col-xs-3 col-sm-3">颜色分类：<span>深灰紫/白/粉色/蓝灰/黑</span><br>
+                                   鞋码：<span>37.5</span></div>
+                               <div class="col-xs-3 col-sm-3">l***0（匿名）</div>
+                           </div>
+                           <hr>
+                       </div>
+                       <div class="btn-group" style="width: 100%; border: 1px solid #e3e3e3;padding: 10px;">
+                           <form action="">
+                               <table class="table table-bordered">
+                                   <tr>
+                                       <td style="background-color: #e3e3e3;">商品评价 </td>
+                                       <td><textarea name="" id="" cols="120" rows="6"></textarea></td>
+                                   </tr>
+                                   <tr>
+                                       <td style="background-color: #e3e3e3;">添加图片 </td>
+                                       <td><input type="file"></td>
+                                   </tr>
+                               </table>
+                               <button>发表</button>
+                               <button>重置</button>
+                           </form>
+                       </div>
+                   </div>
+               </div>
+            </div>
+        </div>
+
+        <script>
+            $(function () {
+
+            })
+        </script>
+    </div>
+</div>
+<div class="foot">
+    <div class="inner-footer">
+        <div class="foot-other">
+            <div class="other pull-left">
+                <br/>
+                <span class="icon-key icon-large" style="margin:5px;color:gray;"></span><span>消费者保障</span><br/><br/>
+                <a href="#" class="pull-left">保障范围</a>
+                <a href="#" class="pull-left">退货退款流程</a>
+                <a href="#" class="pull-left">服务中心</a>
+                <a href="#" class="pull-left">更多服务</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-question-sign icon-large" style="margin:5px;color:gray;"></span><span>新手上路</span><br/><br/>
+                <a href="#" class="pull-left">新手专区</a>
+                <a href="#" class="pull-left">消费警示</a>
+                <a href="#" class="pull-left">交易安全</a>
+                <a href="#" class="pull-left">24小时在线帮助</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-credit-card icon-large" style="margin:5px;color:gray;"></span><span>付款方式</span><br/><br/>
+                <a href="#" class="pull-left">快捷支付</a>
+                <a href="#" class="pull-left">信用卡</a>
+                <a href="#" class="pull-left">余额宝</a>
+                <a href="#" class="pull-left">蚂蚁花呗</a>
+                <a href="#" class="pull-left">货到付款</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-github-alt icon-large" style="margin:5px;color:gray;"></span><span>Nami特色</span><br/><br/>
+                <a href="#" class="pull-left  ">手机Nami</a>
+
+            </div>
+        </div>
+        <div class="foot-about">
+            <a href="#">关于Nami</a><b>|</b>
+            <a href="#">合作伙伴</a><b>|</b>
+            <a href="#">联系客服</a><b>|</b>
+            <a href="#">招牌英才</a><b>|</b>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+    <link rel="stylesheet" href="content/bootstrap.css">
+    <link rel="stylesheet" href="content/font-awesome.css">
+    <link href="content/bootstrap_theme/cerulean.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="test/ui-dialog.css">
+    <link rel="stylesheet" href="css/tipsy.css">
+    <style>
+        body{
+            font-family: 微软雅黑,宋体 ;
+            font-size: 14px;
+            padding:0;
+            margin: 0;
+        }
+        ul,div{
+            list-style: none;
+        }
+        h3{
+            margin:5px 0 5px 0;
+            font-size:15px;
+            font-family:微软雅黑;
+            font-weight: bold;
+        }
+    </style>
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="content/bootstrap.js"></script>
+    <script src="test/dialog.js"></script>
+    <script src="js/tipsy.js"></script>
+
+    <script src="newjs/hot_word.js"></script>
+    <script src="js/Carousel.js"></script>
+    <script src="js/category.js"></script>
+    <script src="js/news.js"></script>
+    <script src="js/commodityShow.js"></script>
+    <script>
+        $(function () {
+    carouselManager.init();
+    initCategory();
+    newsManager.init();
+    initcomdtImg();
+    $(".search").on("keyup", function (e) {
+    var d = dialog({
+    title: 'sousuo',
+    content: '正在加载，请稍候！'
+    });
+    if (e.which == 13) {
+    d.showModal();
+    }
+
+    }).on("click", "button", function () {
+    var d = dialog({
+    title: 'sousuo',
+    content: '正在加载，请稍候！'
+    });
+    d.showModal();
+    });
+    $(".img-unit").hover(showDiv,hideDiv);
+    $(".img-unit").click(function () {
+    var _this=$(this);
+    var id=_this.attr("id");
+    skip(id);
+    });
+    carouselManager.switch();
+    newsManager.scroll();
+
+    function skip(id) {
+    location.href="http://localhost:63342/bootstrap_note/webapp/details.html?_ijt=98t539g18hgnlp5e3qgsh6eef3&id="+id;
+    }
+    $('[title]').tipsy({gravity: 'n',offset:-200,fade:true});
+    })
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="container">
+        <div class="row logo-sousuo">
+            <div class="col-xs-3 col-sm-3 logo">
+                <img src="resource/Images/LOGO_1.png" class="img-responsive">
+            </div>
+            <div class="col-xs-9 col-sm-9 sousuo input-group">
+                <input type="text" placeholder="请输入商品名称" style="max-width:80%;width: 500px;height: 40px;border: 3px solid #044889;" class="form-control">
+                <button class="btn btn-info" style="width:100px;height: 40px;border:3px solid #044889;margin-left: -3px;">搜索</button><br>
+                <!--<div class="pull-left" style="margin-right: 20px;"><a class="hotSale" style="font-size: 10px;">运动鞋</a></div>
+                <div class="pull-left" style="margin-right: 20px;"><a style="font-size: 10px;">运动鞋</a></div>
+                <div class="pull-left" style="margin-right: 20px;"><a style="font-size: 10px;">运动鞋</a></div>-->
+            </div>
+        </div>
+        <div class="row naver">
+            <div class="col-xs-2 col-sm-2" style="background-color: #044889;padding-top:15px;color:white;font-weight: bold; opacity: 0.8;">
+                <div style="height:30px;">主题市场
+                    <a style="color:white;"><span class="icon-th-list icon-large pull-right" style="line-height: 1.3;"></span></a>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-10">
+                <div class="bs-component">
+                    <ul class="nav nav-pills">
+                        <li><a href="#">天猫城</a></li>
+                        <li><a href="#">聚划算</a></li>
+                        <li><a href="#">天猫超市</a></li>
+                        <li><a href="#">电器城</a></li>
+                        <li><a href="#">海外购</a></li>
+                        <li><a href="#">酷动城</a></li>
+                        <li><a href="#">淘抢购</a></li>
+                        <li><a href="#">特色中国</a></li>
+                        <li><a href="#">Nami拍卖</a></li>
+                        <li><a href="#">手机Nami</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 left-menu" style="background-color: #044889; opacity: 0.79;"></div>
+            <div class="col-xs-10 col-sm-10 main-part">
+                <div class="row">
+                    <div class="col-xs-9 col-sm-9 adv-carousel">
+                    </div>
+                    <div class="col-xs-3 col-sm-3 adv-small">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 small-up">
+                                <img src="resource/Images/sroll.jpg" class="img-responsive">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 small-down">
+                                <div><h3>最新活动</h3></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row adv-unit">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="row com-head" style="background-color: white;">
+                            <h3>品牌活动</h3>
+                        </div>
+                        <div class="row com-img"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="foot">
+    <div class="inner-footer">
+        <div class="foot-other">
+            <div class="other pull-left">
+                <br/>
+                <span class="icon-key icon-large" style="margin:5px;color:gray;"></span><span>消费者保障</span><br/><br/>
+                <a href="#" class="pull-left">保障范围</a>
+                <a href="#" class="pull-left">退货退款流程</a>
+                <a href="#" class="pull-left">服务中心</a>
+                <a href="#" class="pull-left">更多服务</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-question-sign icon-large" style="margin:5px;color:gray;"></span><span>新手上路</span><br/><br/>
+                <a href="#" class="pull-left">新手专区</a>
+                <a href="#" class="pull-left">消费警示</a>
+                <a href="#" class="pull-left">交易安全</a>
+                <a href="#" class="pull-left">24小时在线帮助</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-credit-card icon-large" style="margin:5px;color:gray;"></span><span>付款方式</span><br/><br/>
+                <a href="#" class="pull-left">快捷支付</a>
+                <a href="#" class="pull-left">信用卡</a>
+                <a href="#" class="pull-left">余额宝</a>
+                <a href="#" class="pull-left">蚂蚁花呗</a>
+                <a href="#" class="pull-left">货到付款</a>
+            </div>
+            <div class="pull-left other">
+                <br/>
+                <span class="icon-github-alt icon-large" style="margin:5px;color:gray;"></span><span>Nami特色</span><br/><br/>
+                <a href="#" class="pull-left  ">手机Nami</a>
+
+            </div>
+        </div>
+        <div class="foot-about">
+            <a href="#">关于Nami</a><b>|</b>
+            <a href="#">合作伙伴</a><b>|</b>
+            <a href="#">联系客服</a><b>|</b>
+            <a href="#">招牌英才</a><b>|</b>
+        </div>
+    </div>
+</div>
+</body>
+</html>

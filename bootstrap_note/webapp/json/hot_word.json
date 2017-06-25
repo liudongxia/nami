@@ -1,0 +1,17 @@
+[
+  {
+    "link": "#",
+    "active": false,
+    "word":"李宁运动鞋"
+  },
+  {
+    "link": "#",
+    "active": true,
+    "word":"耐克运动鞋"
+  },
+  {
+    "link": "#",
+    "active": false,
+    "word":"运动鞋"
+  }
+]

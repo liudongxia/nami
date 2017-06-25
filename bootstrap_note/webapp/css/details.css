@@ -1,0 +1,373 @@
+/*global's style*/
+body{
+    font-family: 微软雅黑,宋体 ;
+    font-size: 14px;
+    padding:0;
+    margin: 0;
+}
+ul,div {
+    list-style: none;
+}
+ul{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    margin:0;
+    font-size:16px;
+    font-weight:bold;
+}
+select{
+    cursor: pointer;
+    height: 30px;
+}
+.selected{
+    border:2px solid red;
+}
+
+.unselected{
+    border: 1px solid #e3e3e3;
+}
+/*header's style*/
+.header{
+    width: 100%;
+    height:120px;
+}
+.logo-sousuo{
+    max-height: 100%;
+    height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.logo{
+    max-height: 100%;
+    height: 40px;
+}
+.store-name{
+    max-height: 100%;
+    height: 40px;
+    border-left:1px dashed #e3e3e3;
+    border-right:1px dashed #e3e3e3;
+}
+.s-name{
+    font-weight: bold;
+    color: #044889;
+}
+.search-input{
+    max-height: 100%;
+    height: 40px;
+}
+.naver{
+    max-height: 100%;
+    height: 50px;
+    margin-top: 10px;
+    background-color:#044889;
+}
+.naver a{
+    font-weight: bold;
+    font-size: 16px;
+}
+.store-logo{
+    max-height: 100%;
+    height: 45px;
+    margin-top: 5px;
+    padding-left:50px;
+}
+.store-naver{
+    max-height: 100%;
+    height: 45px;
+    margin-top: 5px;
+}
+/*main's style*/
+.mainer{
+    background-color: #FCFCFC;
+    height:auto;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.buy-message{
+    height: 600px;
+    background-color: white;
+    padding: 10px;
+}
+.buy-message-img{
+    max-height: 100%;
+    height:580px;
+    position: relative;
+}
+.buy-img-big{
+    max-height: 80%;
+    height:464px;
+    padding: 0 10px 0 0;
+}
+.buy-img-big img{
+    border:1px solid #e3e3e3;
+}
+.magnifying-glassDiv{
+    position: absolute;
+    top:0px;
+    left: 474px;
+    width: 464px;
+    height:464px;
+    border:1px solid #e3e3e3;
+    overflow: hidden;
+    display: none;
+}
+.slider-Div{
+    position: absolute;
+    background: rgba(135,135,135,0.4);
+    top: 0;
+    display: none;
+}
+.buy-img-small{
+    max-height: 20%;
+    height:116px;
+    padding:20px 5px 20px 20px;
+}
+.img-small-unit{
+    height:78px;
+    width:78px;
+    margin-right:15px;
+    padding: 0;
+}
+.img-small-unit-hover{
+    height:78px;
+    border: 3px solid #044889;
+    margin-right:15px;
+    padding: 0;
+}
+.buy-message-describe{
+    max-height: 100%;
+    height:600px;
+    font-size: 13px;
+}
+.buy-message-describe div{
+    margin-bottom: 10px;
+}
+.buy-describe-name{
+    max-height: 10%;
+    height:auto;
+    color: #044889;
+}
+.buy-describe-ltitle{
+    max-height: 5%;
+    height:auto;
+    color:red;
+}
+.buy-describe-intro{
+    max-height: 10%;
+    height:auto;
+    color: gray;
+}
+.price-active{
+    background-color: whitesmoke;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.price-active div{
+    margin-bottom: 0;
+}
+.buy-describe-price{
+    max-height: 10%;
+    height:auto;
+}
+.price-style{
+    font-size:30px;
+    color:darkred;
+    font-weight: bolder;
+}
+.Coupon-style{
+    font-size:13px;
+    color:darkred;
+}
+.buy-describe-active{
+    max-height: 10%;
+    height:auto;
+}
+.buy-describe-freight{
+    max-height: 5%;
+    height:auto;
+}
+.buy-describe-size{
+    margin-top: 20px;
+    max-height: 10%;
+    height:auto;
+}
+.size-li{
+    position: relative;
+    text-align: center;
+    line-height:25px;
+    width:35px;
+    height:25px;
+    font-size: 13px;
+    display: inline-block;
+    margin-right: 5px;
+}
+.buy-describe-color{
+    margin-top: 20px;
+    max-height: 10%;
+    height:auto;
+}
+.color-li{
+    position: relative;
+    width:40px;
+    height:40px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+.buy-describe-amount{
+    max-height: 5%;
+    height:29px;
+}
+.buy-message-add{
+    padding-left: 30px;
+}
+.buy-message-add button,.buy-message-buy button{
+    cursor: pointer;
+    color: white;
+    font-family:微软雅黑;
+    width: 100px;
+    height:40px;
+    background-color: #504c4d;
+    margin-right: 10px;
+}
+.buy-message-other{
+    max-height: 100%;
+    height:600px;
+    border: 1px solid #e3e3e3;
+}
+.details-show{
+    height:auto;
+    background-color: white;
+    padding: 10px;
+    border-top: 1px solid #e3e3e3;
+}
+.detail-tag{
+    cursor: pointer;
+    position: relative;
+    max-height: 10%;
+    height:50px;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 40px;
+}
+.com-tag{
+    cursor: pointer;
+    position: relative;
+    max-height: 10%;
+    height:50px;
+    font-weight: bold;
+    font-size: 15px;
+    line-height: 40px;
+}
+
+.okDown{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    border-top: 5px solid red;
+    border-right: 5px solid rgba(255,0,0,0);
+    border-bottom: 5px solid rgba(255,0,0,0);
+    border-left: 5px solid rgba(255,0,0,0);
+    top:0;
+    left:45%;
+    display: none;
+}
+
+.onShow{
+    background-color: #e3e3e3;
+    border-top: 2px solid red;
+}
+.onHide{
+    border: 1px solid #e3e3e3;
+}
+
+.details-show-area{
+    max-height: 90%;
+    height:auto;
+}
+
+
+.detail-part{
+    width: 100%;
+    display: none;
+    padding:0 10px;
+}
+
+.productInfo{
+    list-style: none;
+    font-size: 0.75em;
+}
+
+.productInfo li{
+    width:30%;
+    height: 30px;
+    float: left;
+    overflow: hidden;
+}
+.productImg{
+    height:100%;
+    text-align: center;
+    padding: 15px;
+}
+
+.productImg img{
+    height: 426px;
+    margin:0 auto;
+}
+.com-part{
+    width: 100%;
+    display: none;
+    height: auto;
+}
+
+.score{
+    padding-left: 15px;
+}
+
+.score-style{
+    color:#044889;
+    font-weight: bolder;
+}
+/*footer's style*/
+.foot{
+    background-color: white;
+    width: 100%;
+    height:200px;
+    padding-bottom:20px ;
+}
+.inner-footer{
+    width:1152px;
+    height:170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.foot-other{
+    width:1152px;
+    height:150px;
+}
+.other{
+    min-width: 20%;
+    height:100px;
+    padding: 10px;
+}
+.other a{
+    font-size:13px;
+    margin: 5px;
+    color:#044889;
+}
+.other span{
+    font-size:16px;
+    color:#044889;
+    font-weight:bold;
+}
+.foot-about{
+    width:1152px;
+    height:20px;
+    font-size: 13px;
+    text-align: center;
+}
+.foot-about a{
+    margin-right: 10px;
+}

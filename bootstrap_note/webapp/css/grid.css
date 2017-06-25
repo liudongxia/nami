@@ -1,0 +1,293 @@
+.hotSale{
+    color: red;
+}
+.pull-left{
+    float: left;
+}
+.pull-right{
+    float: right;
+}
+.header{
+    background-color: white;
+    width: 100%;
+    height:155px;
+}
+.main{
+    background-color: #f1f1f1;
+    width: 100%;
+    height:auto;
+    padding-bottom: 10px;
+}
+.foot{
+    background-color: white;
+    width: 100%;
+    height:200px;
+}
+.logo{
+    height:110px;
+    padding: 20px 0 0 20px;
+}
+.sousuo{
+    height:110px;
+    padding:30px 0 0 0;
+}
+.naver{
+    height:45px;
+}
+.naver a{
+    color:#044889;
+    font-size:14px;
+    font-weight: bold;
+}
+.left-menu{
+    height: auto;
+    padding:10px 10px 10px 20px;
+}
+.left-menu span{
+    font-size: 13px;
+    margin-right: 5px;
+    color:white;
+}
+.left-menu a{
+    font-size: 13px;
+    margin-right: 5px;
+    color:white;
+}
+.main-part{
+    height:auto;
+}
+.adv-carousel{
+    max-width: 75%;
+    height: 432px;
+    padding:0 10px 0 10px;
+    position: relative;
+}
+.img-carousel{
+    min-width: 100%;
+    height:380px;
+    overflow: hidden;
+}
+.tag-control{
+    min-width: 100%;
+    height:52px;
+    overflow: hidden;
+}
+.ul-carousel{
+    position: relative;
+    min-width: 500%;
+    height: 380px;
+    padding:10px 0 10px 0;
+    margin:0;
+    line-height: 0;
+    overflow: hidden;
+}
+.li-carousel{
+    min-width: 20%;
+    height:380px;
+    overflow: hidden;
+}
+.li-carousel a{
+    margin: 0;
+}
+.li-carousel img{
+    min-width: 100%;
+    min-height: 100%;
+}
+.ul-tag{
+    min-width: 100%;
+    height:52px;
+    padding:0;
+    margin:0;
+}
+
+.li-tag{
+    cursor:pointer;
+    max-width: 20%;
+    width:143px;
+    height:45px;
+    background-color:#044889;
+    border:1px solid #6e6e6e;
+    padding-left: 5px;
+    color:white;
+    text-align: center;
+}
+.li-current{
+    cursor:pointer;
+    width:143px;
+    height:45px;
+    padding-left: 5px;
+    background-color:#eeeeee;
+    border-style:outset;
+    color:#6e6e6e;
+    font-weight:bold;
+    text-align: center;
+}
+.adv-small{
+    height: 437px;
+    padding:10px 10px 0 0;
+}
+.small-up{
+    max-height:30%;
+}
+.small-up img{
+    background-color: white;
+}
+.small-down{
+    width:89%;
+    height:278px;
+    min-height:50%;
+    font-size:12px;
+    overflow: hidden;
+    background-color: white;
+    margin-left:15px;
+}
+#demo2{
+    margin: 0;
+    padding: 0;
+    width: 192px;
+    height:240px;
+    position: absolute;
+    overflow: hidden;
+}
+.small-down li{
+    height: 15px;
+    margin-bottom:10px;
+
+}
+.adv-unit{
+    min-width: 100%;
+    height:auto;
+    padding:0 10px;
+}
+.com-img{
+    min-width: 100%;
+    min-height: 100%;
+}
+.com-head{
+    padding-left: 5px;
+}
+.img-unit{
+    min-width: 25%;
+    height:100%;
+    overflow: hidden;
+    padding: 8px 5px 5px 5px;
+    margin: 0;
+    background-color: white;
+}
+.tag-unit{
+    min-width: 25%;
+    background-color: #044889;
+    height:32px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 32px;
+}
+.tag-unit a{
+    color:white;
+}
+.img-unit img{
+    min-width: 100%;
+    border:1px solid #044889;
+}
+.inner-footer{
+    width:1152px;
+    height:170px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.foot-other{
+    width:1152px;
+    height:150px;
+}
+.other{
+    min-width: 20%;
+    height:100px;
+    padding: 10px;
+}
+.other a{
+    font-size:13px;
+    margin: 5px;
+    color:#044889;
+}
+.other span{
+    font-size:16px;
+    color:#044889;
+    font-weight:bold;
+}
+.foot-about{
+    width:1152px;
+    height:20px;
+    font-size: 13px;
+    text-align: center;
+}
+.foot-about a{
+    margin-right: 10px;
+}
+
+.displayDiv{
+    position: absolute;
+    cursor: pointer;
+    top:0;
+    left:0;
+    z-index:100;
+    display:block;
+    max-width: 100%;
+    min-width:95.5%;
+    min-height:83.5%;
+    background-color:gray;
+    opacity:0.8;
+    margin: 8px 5px 0 5px;
+}
+.displayDiv button{
+    opacity:1;
+}
+.hideDiv{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:-10;
+    display:none;
+    min-width:100%;
+    min-height:100%;
+    background-color:gray;
+    opacity:0.4;
+    margin: 5px;
+}
+
+.center{
+    position: absolute;
+    top:45%;
+    left:40%;
+}
+
+.adv-carousel:hover .prev,.adv-carousel:hover .next{
+    opacity: 0.4;
+}
+.prev{
+    left:1%;
+    float: left;
+    text-align:center;
+    display:block;
+    background:#eeeeee;
+    top:45%;
+    width:40px;
+    height:40px;
+    font-size:40px;
+    color: #044889;
+    position: absolute;
+    opacity: 0;
+}
+.next{
+    left:94%;
+    float: left;
+    text-align:center;
+    display:block;
+    background:#eeeeee;
+    top:45%;
+    width:40px;
+    height:40px;
+    font-size:40px;
+    color: #044889;
+    position: absolute;
+    opacity: 0;
+}
